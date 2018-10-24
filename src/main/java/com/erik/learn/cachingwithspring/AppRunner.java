@@ -18,7 +18,7 @@ public class AppRunner implements CommandLineRunner {
 	private final CacheableService cacheableService;
 
 	@Override
-	public void run(String... args)  {
+	public void run(String... args) throws Exception{
 		IntStream.range(0, 3).forEach(i -> {
 			log.info("fetch ...");
 			int size = cacheableService.getRareHardToFindBooks().size();
@@ -36,6 +36,15 @@ public class AppRunner implements CommandLineRunner {
 
 		cacheableService.evictRareHardToFindBooks();
 		log.info("evictRareHardToFindBooks()");
+
+		IntStream.range(0, 3).forEach(i -> {
+			log.info("fetch ...");
+			int size = cacheableService.getRareHardToFindBooks().size();
+			log.info("Size of rare-book: {}", size);
+		});
+
+		log.info("sleeping for 20 second");
+		Thread.sleep(20000);
 
 		IntStream.range(0, 3).forEach(i -> {
 			log.info("fetch ...");
